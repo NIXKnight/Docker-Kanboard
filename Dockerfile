@@ -49,6 +49,7 @@ RUN set -eux; \
     make -j "$(nproc)"; \
 	  find -type f -name '*.a' -delete; \
 	  make install; \
+    cp -v php.ini-production $PHP_INI_DIR/php.ini; \
 	  find /usr/local/bin /usr/local/sbin -type f -executable -exec strip --strip-all '{}' + || true; \
 	  make clean; \
     git clone $NGINX_UNIT_URL --branch $NGINX_UNIT_VERSION --depth 1 $NGINX_UNIT_SRC_DIR && cd $NGINX_UNIT_SRC_DIR; \

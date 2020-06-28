@@ -100,7 +100,16 @@ cat <<'EOF' > /etc/kanboard.json
       "user": "www-data",
       "group": "www-data",
       "root": "/var/www/kanboard",
-      "script": "index.php"
+      "script": "index.php",
+      "options": {
+        "file": "/usr/local/etc/php/php.ini",
+        "admin": {
+          "expose_php": "Off",
+          "post_max_size": "25M",
+          "upload_max_filesize": "25M",
+          "date.timezone": "UTC"
+        }
+      }
     }
   },
   "routes": [
