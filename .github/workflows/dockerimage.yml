@@ -1,0 +1,38 @@
+name: Build Kanboard Docker Image
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          path: "${GITHUB_WORKSPACE}/Docker-Kanboard"
+
+      - name: Build Kanboard Docker Image
+        shell: bash
+        env:
+          USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+        working-directory: ${GITHUB_WORKSPACE}/Docker-Kanboard
+        run: |
+          docker build . --file Dockerfile \
+            --build-arg PHP_VERSION=7.4.7 \
+            --build-arg NGINX_UNIT_VERSION=1.18.0 \
+            --build-arg KANBOARD_VERSION=v1.2.15 \
+            --tag "${USERNAME}/kanboard:v1.2.15" \
+            --tag "${USERNAME}/kanboard:latest"
+
+      - name: Push Kanboard Docker Image to Docker Hub
+        shell: bash
+        env:
+          USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+          DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
+          DOCKER_GITHUB_TOKEN: ${{ secrets.DOCKER_GITHUB_TOKEN }}
+        run: |
+          docker login -u ${USERNAME} -p ${DOCKER_HUB_TOKEN}
+          docker push "${USERNAME}/kanboard:v1.2.15"
+          docker push "${USERNAME}/kanboard:latest"
+          docker logout
