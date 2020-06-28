@@ -81,7 +81,7 @@ RUN set -eux; \
     mkdir /var/www; \
     git clone $KANBOARD_URL --branch $KANBOARD_VERSION --depth 1 /var/www/kanboard; \
     rm -rvf /var/www/kanboard/.git; \
-    echo "$KANBOARD_VERSION" > /var/www/kanboard/version.txt
+    echo "$KANBOARD_VERSION" > /var/www/kanboard/version.txt; \
     chown -R www-data:www-data /var/www/kanboard
 
 EXPOSE 9000
