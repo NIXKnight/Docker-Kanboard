@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+  kanboard:
+    container_name: kanboard
+    hostname: kanboard
+    image: kanboard:latest
+    volumes:
+      - kanboard_data:/var/www/kanboard/data
+      - kanboard_plugins:/var/www/kanboard/plugins
+    environment:
+      DB_DRIVER: "mysql"
+      DB_USERNAME: "kanboard"
+      DB_PASSWORD: "kanboard"
+      DB_HOSTNAME: "kanboard_mariadb"
+      DB_NAME: "kanboard"
+      DB_PORT: 3306
+  nginx:
+    container_name: kanboard_nginx
+    hostname: kanboard_nginx
+    image: nginx:latest
+    ports:
+      - "127.0.0.1:80:80"
+    volumes:
+      - ./kanboard_nginx.conf:/etc/nginx/conf.d/default.conf
+  mariadb:
+    container_name: kanboard_mariadb
+    hostname: kanboard_mariadb
+    image: mariadb:10.5.4
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: kanboard
+      MYSQL_USER: kanboard
+      MYSQL_PASSWORD: kanboard
+
+volumes:
+  kanboard_data:
+  kanboard_plugins:
+  mariadb_data:
