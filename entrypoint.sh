@@ -47,7 +47,7 @@ define('MAIL_FROM', getenv('MAIL_FROM'));
 // Run automatically database migrations
 // If set to false, you will have to run manually the SQL migrations from the CLI during the next Kanboard upgrade
 // Do not run the migrations from multiple processes at the same time (example: web page + background worker)
-define('DB_RUN_MIGRATIONS', true);
+define('DB_RUN_MIGRATIONS', false);
 
 // Database configuration
 define('DB_DRIVER', getenv('DB_DRIVER'));
