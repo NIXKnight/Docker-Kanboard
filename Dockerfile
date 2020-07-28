@@ -54,7 +54,7 @@ RUN set -eux; \
 	  make clean; \
     git clone $NGINX_UNIT_URL --branch $NGINX_UNIT_VERSION --depth 1 $NGINX_UNIT_SRC_DIR && cd $NGINX_UNIT_SRC_DIR; \
     CFLAGS="$NGINX_UNIT_CCFLAGS" LDFLAGS="$NGINX_UNIT_LDFLAGS" ./configure --prefix=$INSTALL_PREFIX --state=$INSTALL_PREFIX/lib/unit \
-      --control=unix:/var/run/control.unit.sock --pid=/var/run/unit.pid --log=/var/log/unit.log --tests --openssl \
+      --control=unix:/var/run/control.unit.sock --pid=/var/run/unit.pid --log=/var/log/unit.log --tests --state=state --openssl \
       --modules=$INSTALL_PREFIX/lib/unit/modules --libdir=$INSTALL_PREFIX/lib/x86_64-linux-gnu; \
     CFLAGS="$NGINX_UNIT_CCFLAGS" LDFLAGS="$NGINX_UNIT_LDFLAGS" ./configure php --config=$INSTALL_PREFIX/bin/php-config \
       --lib-path=$INSTALL_PREFIX/lib; \
