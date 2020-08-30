@@ -19,14 +19,14 @@ jobs:
         working-directory: ${GITHUB_WORKSPACE}/Docker-Kanboard
         run: |
           docker build . --file Dockerfile \
-            --build-arg PHP_VERSION=7.4.7 \
-            --build-arg NGINX_UNIT_VERSION=1.18.0 \
+            --build-arg PHP_VERSION=7.4.8 \
+            --build-arg NGINX_UNIT_VERSION=1.19.0 \
             --build-arg KANBOARD_VERSION=v1.2.15 \
             --tag docker.pkg.github.com/${USERNAME}/docker-kanboard/kanboard:v1.2.15 \
-            --tag docker.pkg.github.com/${USERNAME}/docker-kanboard/kanboard:v1.2.15_php-7.4.7_unit-1.18.0 \
+            --tag docker.pkg.github.com/${USERNAME}/docker-kanboard/kanboard:v1.2.15_php-7.4.8_unit-1.19.0 \
             --tag docker.pkg.github.com/${USERNAME}/docker-kanboard/kanboard:latest \
             --tag "${USERNAME}/kanboard:v1.2.15" \
-            --tag "${USERNAME}/kanboard:v1.2.15_php-7.4.7_unit-1.18.0" \
+            --tag "${USERNAME}/kanboard:v1.2.15_php-7.4.8_unit-1.19.0" \
             --tag "${USERNAME}/kanboard:latest"
 
       - name: Push Kanboard Docker Image to Docker Hub and GitHub Registries
@@ -38,11 +38,11 @@ jobs:
         run: |
           docker login -u ${USERNAME} -p ${DOCKER_HUB_TOKEN}
           docker push "${USERNAME}/kanboard:v1.2.15"
-          docker push "${USERNAME}/kanboard:v1.2.15_php-7.4.7_unit-1.18.0"
+          docker push "${USERNAME}/kanboard:v1.2.15_php-7.4.8_unit-1.19.0"
           docker push "${USERNAME}/kanboard:latest"
           docker logout
           docker login docker.pkg.github.com -u ${USERNAME} -p ${DOCKER_GITHUB_TOKEN}
           docker push "docker.pkg.github.com/${USERNAME}/docker-kanboard/kanboard:v1.2.15"
-          docker push "docker.pkg.github.com/${USERNAME}/docker-kanboard/kanboard:v1.2.15_php-7.4.7_unit-1.18.0"
+          docker push "docker.pkg.github.com/${USERNAME}/docker-kanboard/kanboard:v1.2.15_php-7.4.8_unit-1.19.0"
           docker push "docker.pkg.github.com/${USERNAME}/docker-kanboard/kanboard:latest"
           docker logout
