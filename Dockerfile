@@ -34,7 +34,7 @@ RUN set -eux; \
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
     savedAptMark="$(apt-mark showmanual)"; \
     apt-get install -y --no-install-recommends --no-install-suggests bison libargon2-dev libcurl4-openssl-dev libedit-dev libonig-dev \
-      libsodium-dev libsqlite3-dev libssl-dev libxml2-dev zlib1g-dev libpng-dev libzip-dev ${PHP_EXTRA_BUILD_DEPS:-}; \
+      libsodium-dev libsqlite3-dev libssl-dev libxml2-dev zlib1g-dev libpng-dev libzip-dev libpcre2-dev ${PHP_EXTRA_BUILD_DEPS:-}; \
     rm -rvf /var/lib/apt/lists/*; \
     gnuArch="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)"; \
     debMultiarch="$(dpkg-architecture --query DEB_BUILD_MULTIARCH)"; \
